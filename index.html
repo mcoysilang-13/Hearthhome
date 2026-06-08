@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The HearthHome — Where Every Home Tells a Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FAF6F0; --warm-white: #FFFDF9; --terracotta: #C4673A;
+    --terracotta-light: #E8A07A; --terracotta-dark: #8B3E1F;
+    --sage: #7A9177; --sage-light: #B8CDB5; --mahogany: #3D1F0F;
+    --text-dark: #2C1A0E; --text-mid: #5C4033; --text-light: #8C6E5A;
+    --border: #E8DDD4; --card-bg: #FFFCF8;
+  }
+  body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.7; }
+  h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+  a { text-decoration: none; color: inherit; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--warm-white); border-bottom: 1px solid var(--border);
+    padding: 0 2rem; display: flex; align-items: center;
+    justify-content: space-between; height: 72px;
+  }
+  .nav-logo img { height: 58px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links a { color: var(--text-mid); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-actions { display: flex; gap: 1rem; align-items: center; }
+  .cart-btn {
+    background: var(--terracotta); color: white; border: none; border-radius: 50px;
+    padding: 8px 20px; font-family: 'Lato', sans-serif; font-size: 0.8rem;
+    font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 6px; cursor: pointer; transition: background 0.2s;
+  }
+  .cart-btn:hover { background: var(--terracotta-dark); }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; }
+  .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem 5rem 5rem; background: var(--warm-white); }
+  .hero-eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.2rem; }
+  .hero-title { font-size: clamp(2.5rem, 4vw, 3.8rem); color: var(--mahogany); margin-bottom: 1.5rem; }
+  .hero-subtitle { font-size: 1.1rem; color: var(--text-mid); font-weight: 300; max-width: 420px; margin-bottom: 2.5rem; line-height: 1.8; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--terracotta); color: white; padding: 14px 32px; border-radius: 50px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--terracotta); padding: 13px 32px; border-radius: 50px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid var(--terracotta); cursor: pointer; transition: all 0.2s; display: inline-block; }
+  .btn-outline:hover { background: var(--terracotta); color: white; }
+  .hero-image { position: relative; overflow: hidden; background: linear-gradient(145deg, #8B5035 0%, #6B3520 40%, #4A2510 100%); display: flex; align-items: center; justify-content: center; }
+  .hero-logo-center { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+  .hero-logo-center img { width: 82%; max-width: 420px; height: auto; filter: drop-shadow(0 0 25px rgba(255,220,120,0.6)) drop-shadow(0 2px 8px rgba(0,0,0,0.8)) brightness(1.5) contrast(1.25) saturate(1.3); transition: transform 0.3s; }
+  .hero-logo-center img:hover { transform: scale(1.04); }
+  .hero-badge .icon { font-size: 3.5rem; margin-bottom: 0.8rem; }
+  .hero-badge h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; }
+  .hero-badge p { font-size: 0.9rem; opacity: 0.85; font-family: 'Lato', sans-serif; font-weight: 300; }
+
+  /* TRUST BAR */
+  .trust-bar { background: var(--terracotta-dark); color: white; display: flex; justify-content: center; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 10px; padding: 1.1rem 2.5rem; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-right: 1px solid rgba(255,255,255,0.15); }
+  .trust-item:last-child { border-right: none; }
+
+  /* SECTIONS */
+  section { padding: 5rem 5vw; }
+  .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.8rem; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--mahogany); margin-bottom: 1rem; }
+  .section-sub { color: var(--text-light); font-weight: 300; font-size: 1rem; max-width: 540px; margin-bottom: 3rem; }
+
+  /* CATEGORIES */
+  .categories { background: var(--warm-white); }
+  .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  .cat-card { border-radius: 16px; overflow: hidden; position: relative; aspect-ratio: 3/4; cursor: pointer; transition: transform 0.3s; }
+  .cat-card:hover { transform: translateY(-4px); }
+  .cat-card-bg { width: 100%; height: 100%; display: flex; align-items: flex-end; padding: 1.5rem; position: relative; }
+  .cat-card-bg::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(30,10,0,0.75) 0%, transparent 55%); }
+  .cat-info { position: relative; z-index: 1; color: white; }
+  .cat-emoji { font-size: 2rem; margin-bottom: 0.3rem; }
+  .cat-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+  .cat-count { font-size: 0.8rem; opacity: 0.8; }
+  .cat-bg-1 { background: linear-gradient(135deg, #B5835A, #7A4A28); }
+  .cat-bg-2 { background: linear-gradient(135deg, #8FA78B, #4E6E53); }
+  .cat-bg-3 { background: linear-gradient(135deg, #C4906A, #8B4A20); }
+  .cat-bg-4 { background: linear-gradient(135deg, #A0876A, #5C3820); }
+
+  /* PRODUCTS */
+  .products { background: var(--cream); }
+  .prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .prod-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: box-shadow 0.3s, transform 0.2s; }
+  .prod-card:hover { box-shadow: 0 12px 40px rgba(90,40,10,0.12); transform: translateY(-3px); }
+  .prod-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; }
+  .prod-badge { position: absolute; top: 12px; left: 12px; background: var(--terracotta); color: white; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; }
+  .prod-body { padding: 1.1rem; }
+  .prod-cat { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.35rem; }
+  .prod-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--mahogany); margin-bottom: 0.6rem; }
+  .prod-stars { color: #D4873A; font-size: 0.8rem; margin-bottom: 0.6rem; }
+  .prod-stars span { color: var(--text-light); margin-left: 4px; }
+  .prod-price-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.8rem; }
+  .prod-price { font-size: 1.1rem; font-weight: 700; color: var(--terracotta-dark); }
+  .prod-price-old { font-size: 0.85rem; color: var(--text-light); text-decoration: line-through; margin-left: 6px; }
+  .add-btn { background: var(--terracotta); color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 1.3rem; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
+  .add-btn:hover { background: var(--terracotta-dark); }
+
+  /* PROMO */
+  .promo-banner { background: var(--mahogany); color: white; text-align: center; padding: 5rem 2rem; }
+  .promo-banner h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; color: var(--terracotta-light); }
+  .promo-banner p { font-size: 1.1rem; opacity: 0.8; font-weight: 300; max-width: 500px; margin: 0 auto 2rem; }
+
+  /* ABOUT */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; background: var(--warm-white); }
+  .about-visual { border-radius: 20px; overflow: hidden; aspect-ratio: 4/5; background: linear-gradient(160deg, #C4906A 0%, #7A4228 50%, #3D1F10 100%); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-family: 'Playfair Display', serif; font-size: 1.1rem; text-align: center; padding: 2rem; }
+  .about-text { padding: 2rem 0; }
+  .values-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .values-list li { display: flex; gap: 12px; align-items: flex-start; }
+  .val-icon { width: 36px; height: 36px; border-radius: 10px; background: #F5E8DF; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .val-text strong { display: block; color: var(--mahogany); font-size: 0.9rem; margin-bottom: 2px; }
+  .val-text span { font-size: 0.85rem; color: var(--text-light); }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--cream); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .testi-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+  .testi-stars { color: #D4873A; font-size: 1rem; margin-bottom: 1rem; }
+  .testi-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: var(--text-dark); line-height: 1.7; margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 10px; }
+  .author-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: white; flex-shrink: 0; }
+  .author-name { font-weight: 700; font-size: 0.88rem; color: var(--text-dark); }
+  .author-loc { font-size: 0.8rem; color: var(--text-light); }
+
+  /* NEWSLETTER */
+  .newsletter { background: var(--sage); text-align: center; color: white; padding: 5rem 2rem; }
+  .newsletter h2 { font-size: 2.2rem; color: white; margin-bottom: 0.8rem; }
+  .newsletter p { opacity: 0.88; font-weight: 300; margin-bottom: 2rem; font-size: 1.05rem; }
+  .email-form { display: flex; max-width: 480px; margin: 0 auto; border-radius: 50px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.15); }
+  .email-form input { flex: 1; padding: 14px 20px; border: none; background: transparent; color: white; font-family: 'Lato', sans-serif; font-size: 0.95rem; outline: none; }
+  .email-form input::placeholder { color: rgba(255,255,255,0.65); }
+  .email-form button { background: white; color: var(--sage); border: none; padding: 14px 24px; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 0 50px 50px 0; }
+
+  /* FOOTER */
+  footer { background: var(--mahogany); color: rgba(255,255,255,0.7); padding: 4rem 5vw 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-logo img { height: 60px; width: auto; margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.88rem; line-height: 1.8; max-width: 260px; }
+  .footer-col h4 { color: white; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.2rem; font-family: 'Lato', sans-serif; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul a { font-size: 0.88rem; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--terracotta-light); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+
+  /* CART */
+  .cart-overlay { display: none; position: fixed; inset: 0; background: rgba(20,8,0,0.55); z-index: 999; justify-content: flex-end; }
+  .cart-overlay.open { display: flex; }
+  .cart-panel { background: var(--warm-white); width: 380px; height: 100%; overflow-y: auto; padding: 2rem; display: flex; flex-direction: column; }
+  .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+  .cart-header h3 { font-size: 1.4rem; color: var(--mahogany); }
+  .close-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-mid); }
+  .cart-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-light); text-align: center; gap: 1rem; font-size: 3rem; }
+  .cart-empty p { font-size: 0.95rem; }
+  .cart-items { flex: 1; }
+  .cart-item { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .cart-item-img { width: 64px; height: 64px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; background: #F5E8DC; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+  .cart-item-price { font-size: 0.88rem; color: var(--terracotta); font-weight: 700; }
+  .remove-item { background: none; border: none; cursor: pointer; color: var(--text-light); font-size: 1rem; padding: 4px; }
+  .cart-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+  .cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; color: var(--mahogany); margin-bottom: 1.2rem; }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--terracotta-dark); color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; z-index: 9999; transition: transform 0.35s ease; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-image { min-height: 300px; }
+    .hero-text { padding: 3rem 2rem; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .prod-grid { grid-template-columns: repeat(2, 1fr); }
+    .about { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><img src="logo.png" alt="The Hearth Home"/></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#categories">Collections</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="cart-btn" onclick="openCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="hero-text">
+    <p class="hero-eyebrow">✦ New Arrivals Just Dropped</p>
+    <h1 class="hero-title">Make Your House Feel Like <em>Home</em></h1>
+    <p class="hero-subtitle">Handpicked cozy essentials for every room — décor, kitchen finds, bedding, and more. Curated with love, delivered to your door.</p>
+    <div class="hero-ctas">
+      <a href="#shop" class="btn-primary">Shop Now</a>
+      <a href="#categories" class="btn-outline">Browse Collections</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-logo-center">
+      <img src="logo.png" alt="The Hearth Home"/>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">🚚 Free Shipping Over $50</div>
+  <div class="trust-item">↩️ Easy 30-Day Returns</div>
+  <div class="trust-item">🔒 Secure Checkout</div>
+  <div class="trust-item">💬 24/7 Customer Support</div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <p class="section-label">Shop by Collection</p>
+  <h2 class="section-title">Find Your Perfect Vibe</h2>
+  <p class="section-sub">Every home has a story. Find the pieces that tell yours.</p>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="filterProducts('decor')">
+      <div class="cat-card-bg cat-bg-1"><div class="cat-info"><div class="cat-emoji">🕯️</div><div class="cat-name">Home Décor</div><div class="cat-count">48 items</div></div></div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('kitchen')">
+      <div class="cat-card-bg cat-bg-2"><div class="cat-info"><div class="cat-emoji">🫖</div><div class="cat-name">Kitchen & Dining</div><div class="cat-count">35 items</div></div></div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('bedding')">
+      <div class="cat-card-bg cat-bg-3"><div class="cat-info"><div class="cat-emoji">🛏️</div><div class="cat-name">Bedding & Cozy</div><div class="cat-count">29 items</div></div></div>
+    </div>
+    <div class="cat-card" onclick="filterProducts('family')">
+      <div class="cat-card-bg cat-bg-4"><div class="cat-info"><div class="cat-emoji">👨‍👩‍👧</div><div class="cat-name">Family Essentials</div><div class="cat-count">41 items</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="shop">
+  <p class="section-label">Featured Picks</p>
+  <h2 class="section-title">Cozy Finds You'll Love</h2>
+  <p class="section-sub">Our most-loved pieces — handpicked for warmth, quality, and that just-right feeling.</p>
+  <div class="prod-grid" id="products-grid">
+    <div class="prod-card" data-cat="bedding">
+      <div class="prod-img" style="background:#F5E8DC;">🛋️<span class="prod-badge">Bestseller</span></div>
+      <div class="prod-body"><div class="prod-cat">Bedding & Cozy</div><div class="prod-name">Chunky Knit Throw Blanket</div><div class="prod-stars">★★★★★ <span>(128)</span></div><div class="prod-price-row"><div><span class="prod-price">$38.99</span> <span class="prod-price-old">$55</span></div><button class="add-btn" onclick="addToCart('Chunky Knit Throw Blanket','$38.99','🛋️')">+</button></div></div>
+    </div>
+    <div class="prod-card" data-cat="decor">
+      <div class="prod-img" style="background:#EEE5D8;">🕯️<span class="prod-badge">New</span></div>
+      <div class="prod-body"><div class="prod-cat">Home Décor</div><div class="prod-name">Amber Glass Candle Set</div><div class="prod-stars">★★★★★ <span>(84)</span></div><div class="prod-price-row"><div><span class="prod-price">$24.99</span></div><button class="add-btn" onclick="addToCart('Amber Glass Candle Set','$24.99','🕯️')">+</button></div></div>
+    </div>
+    <div class="prod-card" data-cat="kitchen">
+      <div class="prod-img" style="background:#E8EDE4;">🫖</div>
+      <div class="prod-body"><div class="prod-cat">Kitchen & Dining</div><div class="prod-name">Ceramic Pour-Over Set</div><div class="prod-stars">★★★★☆ <span>(67)</span></div><div class="prod-price-row"><div><span class="prod-price">$42.00</span> <span class="prod-price-old">$60</span></div><button class="add-btn" onclick="addToCart('Ceramic Pour-Over Set','$42.00','🫖')">+</button></div></div>
+    </div>
+    <div class="prod-card" data-cat="family">
+      <div class="prod-img" style="background:#F0E8DF;">🪴<span class="prod-badge">Sale</span></div>
+      <div class="prod-body"><div class="prod-cat">Home Décor</div><div class="prod-name">Woven Rattan Wall Planner</div><div class="prod-stars">★★★★★ <span>(52)</span></div><div class="prod-price-row"><div><span class="prod-price">$19.99</span> <span class="prod-price-old">$32</span></div><button class="add-btn" onclick="addToCart('Woven Rattan Wall Planner','$19.99','🪴')">+</button></div></div>
+    </div>
+    <div class="prod-card" data-cat="kitchen">
+      <div class="prod-img" style="background:#EEE5D8;">🍶</div>
+      <div class="prod-body"><div class="prod-cat">Kitchen & Dining</div><div class="prod-name">Farmhouse Stoneware Mug Set</div><div class="prod-stars">★★★★★ <span>(203)</span></div><div class="prod-price-row"><div><span class="prod-price">$31.50</span></div><button class="add-btn" onclick="addToCart('Farmhouse Stoneware Mug Set','$31.50','🍶')">+</button></div></div>
+    </div>
+    <div class="prod-card" data-cat="bedding">
+      <div class="prod-img" style="background:#EDE8F2;">🛌</div>
+      <div class="prod-body"><div class="prod-cat">Bedding & Cozy</div><div class="prod-name">Linen Duvet Cover — Sage</div><div class="prod-stars">★★★★☆ <span>(91)</span></div><div class="prod-price-row"><div><span class="prod-price">$59.99</span> <span class="prod-price-old">$80</span></div><button class="add-btn" onclick="addToCart('Linen Duvet Cover','$59.99','🛌')">+</button></div></div>
+    </div>
+    <div class="prod-card" data-cat="family">
+      <div class="prod-img" style="background:#F5EDDF;">🎒</div>
+      <div class="prod-body"><div class="prod-cat">Family Essentials</div><div class="prod-name">Family Command Center Board</div><div class="prod-stars">★★★★★ <span>(47)</span></div><div class="prod-price-row"><div><span class="prod-price">$28.00</span></div><button class="add-btn" onclick="addToCart('Family Command Center Board','$28.00','🎒')">+</button></div></div>
+    </div>
+    <div class="prod-card" data-cat="decor">
+      <div class="prod-img" style="background:#EEE0D4;">🖼️<span class="prod-badge">New</span></div>
+      <div class="prod-body"><div class="prod-cat">Home Décor</div><div class="prod-name">Boho Macramé Wall Hanging</div><div class="prod-stars">★★★★★ <span>(75)</span></div><div class="prod-price-row"><div><span class="prod-price">$34.00</span></div><button class="add-btn" onclick="addToCart('Boho Macramé Wall Hanging','$34.00','🖼️')">+</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<div class="promo-banner">
+  <img src="logo.png" alt="The Hearth Home" style="height:110px;width:auto;margin:0 auto 1.2rem;display:block;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.4)) brightness(1.1);border-radius:50%;"/>
+  <h2>New Arrivals Every Week</h2>
+  <p>Join thousands of families making their homes cozier — one beautiful piece at a time.</p>
+  <a href="#newsletter" class="btn-primary" style="display:inline-block;">Get First Access</a>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about" style="padding:5rem 5vw;">
+  <div class="about-visual">
+    <div style="text-align:center;">
+      <div style="font-size:4rem;margin-bottom:1rem;">🏡</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:0.5rem;">Our Story</div>
+      <div style="font-size:0.9rem;opacity:0.8;font-family:'Lato',sans-serif;font-weight:300;">Born from a love of<br>home & family</div>
+    </div>
+  </div>
+  <div class="about-text">
+    <p class="section-label">Our Story</p>
+    <h2 class="section-title">A Home Should Feel Like a Hug</h2>
+    <p style="color:var(--text-mid);font-weight:300;line-height:1.9;margin-bottom:1rem;">The HearthHome was born from a simple belief: your home should be a place that truly reflects who you are — warm, welcoming, and full of love.</p>
+    <p style="color:var(--text-mid);font-weight:300;line-height:1.9;">We hand-pick every product with families in mind, sourcing quality pieces that bring comfort, beauty, and functionality to everyday life.</p>
+    <ul class="values-list">
+      <li><div class="val-icon">🌿</div><div class="val-text"><strong>Thoughtfully Curated</strong><span>Every item is chosen for quality, comfort, and character.</span></div></li>
+      <li><div class="val-icon">❤️</div><div class="val-text"><strong>Family First</strong><span>Designed for real homes with real families.</span></div></li>
+      <li><div class="val-icon">✨</div><div class="val-text"><strong>Affordable Comfort</strong><span>Beautiful pieces that don't break the bank.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <p class="section-label">Happy Customers</p>
+  <h2 class="section-title">Loved by Families Everywhere</h2>
+  <p class="section-sub">Don't just take our word for it — here's what our HearthHome family is saying.</p>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"The chunky knit blanket is absolutely gorgeous. It arrived so fast and feels incredibly luxurious — my living room looks like a magazine now!"</p><div class="testi-author"><div class="author-avatar" style="background:#C4673A;">SM</div><div><div class="author-name">Sarah M.</div><div class="author-loc">Texas, USA</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"Ordered the mug set as a gift for my mom and she absolutely loves it. The quality is better than anything I've found in stores at double the price."</p><div class="testi-author"><div class="author-avatar" style="background:#7A9177;">JR</div><div><div class="author-name">James R.</div><div class="author-loc">Oregon, USA</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"HearthHome has become my go-to for home gifts. Everything is so thoughtfully chosen — you can just tell someone with taste picked these items."</p><div class="testi-author"><div class="author-avatar" style="background:#8B3E1F;">AL</div><div><div class="author-name">Anika L.</div><div class="author-loc">Florida, USA</div></div></div></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter" style="padding:5rem 2rem;">
+  <h2>Join the HearthHome Family</h2>
+  <p>Get cozy finds, home inspiration, and exclusive deals delivered to your inbox.</p>
+  <div class="email-form">
+    <input type="email" placeholder="Your email address" id="email-input"/>
+    <button onclick="subscribeEmail()">Get 10% Off</button>
+  </div>
+  <p style="margin-top:1rem;font-size:0.78rem;opacity:0.65;">No spam, ever. Unsubscribe anytime. 💛</p>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo"><img src="logo.png" alt="The Hearth Home"/></div>
+      <p>Making homes cozier, one handpicked piece at a time. Curated with love for families everywhere.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="#shop">New Arrivals</a></li><li><a href="#categories">Home Décor</a></li><li><a href="#categories">Kitchen & Dining</a></li><li><a href="#categories">Bedding & Cozy</a></li><li><a href="#categories">Family Essentials</a></li></ul></div>
+    <div class="footer-col"><h4>Help</h4><ul><li><a href="#">Shipping Info</a></li><li><a href="#">Returns & Refunds</a></li><li><a href="#">Track My Order</a></li><li><a href="#">FAQ</a></li><li><a href="#">Contact Us</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Affiliate Program</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 The HearthHome. All rights reserved.</span>
+    <span>Made with 🧡 for cozy homes everywhere</span>
+  </div>
+</footer>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCartOnOverlay(event)">
+  <div class="cart-panel">
+    <div class="cart-header"><h3>Your Cart 🛒</h3><button class="close-btn" onclick="closeCart()">✕</button></div>
+    <div id="cart-body" class="cart-empty"><div>🛍️</div><p>Your cart is empty.<br/>Start adding cozy things!</p></div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total"><span>Total</span><span id="cart-total">$0.00</span></div>
+      <button class="btn-primary" style="width:100%;text-align:center;display:block;padding:16px;" onclick="checkout()">Checkout →</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let cart = [];
+  function addToCart(name, price, emoji) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) { existing.qty++; } else { cart.push({ name, price, emoji, qty: 1 }); }
+    updateCart(); showToast('🛒 ' + name + ' added!');
+  }
+  function updateCart() {
+    const count = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cart-count').textContent = count;
+    const body = document.getElementById('cart-body');
+    const footer = document.getElementById('cart-footer');
+    if (cart.length === 0) {
+      body.className = 'cart-empty';
+      body.innerHTML = '<div>🛍️</div><p>Your cart is empty.<br/>Start adding cozy things!</p>';
+      footer.style.display = 'none'; return;
+    }
+    body.className = 'cart-items';
+    let total = 0;
+    body.innerHTML = cart.map((item, idx) => {
+      const price = parseFloat(item.price.replace('$',''));
+      total += price * item.qty;
+      return `<div class="cart-item"><div class="cart-item-img">${item.emoji}</div><div class="cart-item-info"><div class="cart-item-name">${item.name} ${item.qty > 1 ? 'x'+item.qty : ''}</div><div class="cart-item-price">${item.price}</div></div><button class="remove-item" onclick="removeItem(${idx})">✕</button></div>`;
+    }).join('');
+    footer.style.display = 'block';
+    document.getElementById('cart-total').textContent = '$' + total.toFixed(2);
+  }
+  function removeItem(idx) { cart.splice(idx, 1); updateCart(); }
+  function openCart() { document.getElementById('cart-overlay').classList.add('open'); }
+  function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); }
+  function closeCartOnOverlay(e) { if (e.target === document.getElementById('cart-overlay')) closeCart(); }
+  function checkout() { showToast('🚀 Redirecting to checkout...'); setTimeout(() => alert('Connect your payment processor to enable checkout!'), 800); }
+  function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
+  function subscribeEmail() { const val = document.getElementById('email-input').value; if (!val || !val.includes('@')) { showToast('⚠️ Please enter a valid email'); return; } showToast('💛 Welcome to the HearthHome family!'); document.getElementById('email-input').value = ''; }
+  function filterProducts(cat) {
+    document.querySelectorAll('.prod-card').forEach(c => { c.style.opacity = (c.dataset.cat === cat) ? '1' : '0.35'; });
+    document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => { document.querySelectorAll('.prod-card').forEach(c => { c.style.opacity = '1'; }); }, 2500);
+  }
+</script>
+</body>
+</html>
