@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The HearthHome — Where Every Home Tells a Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FAF6F0; --warm-white: #FFFDF9; --terracotta: #C4673A;
+    --terracotta-light: #E8A07A; --terracotta-dark: #8B3E1F;
+    --sage: #7A9177; --sage-light: #B8CDB5; --mahogany: #3D1F0F;
+    --text-dark: #2C1A0E; --text-mid: #5C4033; --text-light: #8C6E5A;
+    --border: #E8DDD4; --card-bg: #FFFCF8;
+  }
+  body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.7; }
+  h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+  a { text-decoration: none; color: inherit; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--warm-white); border-bottom: 1px solid var(--border);
+    padding: 0 2rem; display: flex; align-items: center;
+    justify-content: space-between; height: 72px;
+  }
+  .nav-logo img { height: 58px; width: auto; display: block; } .nav-logo { display: flex; align-items: center; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links a { color: var(--text-mid); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-actions { display: flex; gap: 1rem; align-items: center; }
+  .cart-btn {
+    background: var(--terracotta); color: white; border: none; border-radius: 50px;
+    padding: 8px 20px; font-family: 'Lato', sans-serif; font-size: 0.8rem;
+    font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 6px; cursor: pointer; transition: background 0.2s;
+  }
+  .cart-btn:hover { background: var(--terracotta-dark); }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; }
+  .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem 5rem 5rem; background: var(--warm-white); }
+  .hero-eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.2rem; }
+  .hero-title { font-size: clamp(2.5rem, 4vw, 3.8rem); color: var(--mahogany); margin-bottom: 1.5rem; }
+  .hero-subtitle { font-size: 1.1rem; color: var(--text-mid); font-weight: 300; max-width: 420px; margin-bottom: 2.5rem; line-height: 1.8; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--terracotta); color: white; padding: 14px 32px; border-radius: 50px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--terracotta); padding: 13px 32px; border-radius: 50px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid var(--terracotta); cursor: pointer; transition: all 0.2s; display: inline-block; }
+  .btn-outline:hover { background: var(--terracotta); color: white; }
+  .hero-image { position: relative; overflow: hidden; background: linear-gradient(145deg, #8B5035 0%, #6B3520 40%, #4A2510 100%); display: flex; align-items: center; justify-content: center; }
+  .hero-logo-center { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+  .hero-logo-center img { width: 82%; max-width: 420px; height: auto; filter: drop-shadow(0 0 6px rgba(255,220,120,0.5)) drop-shadow(0 2px 10px rgba(0,0,0,0.6)) brightness(1.6) contrast(1.3) saturate(1.2); transition: transform 0.3s; }
+  .hero-logo-center img:hover { transform: scale(1.04); }
+  .hero-badge .icon { font-size: 3.5rem; margin-bottom: 0.8rem; }
+  .hero-badge h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; }
+  .hero-badge p { font-size: 0.9rem; opacity: 0.85; font-family: 'Lato', sans-serif; font-weight: 300; }
+
+  /* TRUST BAR */
+  .trust-bar { background: var(--terracotta-dark); color: white; display: flex; justify-content: center; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 10px; padding: 1.1rem 2.5rem; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-right: 1px solid rgba(255,255,255,0.15); }
+  .trust-item:last-child { border-right: none; }
+
+  /* SECTIONS */
+  section { padding: 5rem 5vw; }
+  .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.8rem; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--mahogany); margin-bottom: 1rem; }
+  .section-sub { color: var(--text-light); font-weight: 300; font-size: 1rem; max-width: 540px; margin-bottom: 3rem; }
+
+  /* CATEGORIES */
+  .categories { background: var(--warm-white); }
+  .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  .cat-card { border-radius: 16px; overflow: hidden; position: relative; aspect-ratio: 3/4; cursor: pointer; transition: transform 0.3s; }
+  .cat-card:hover { transform: translateY(-4px); }
+  .cat-card-bg { width: 100%; height: 100%; display: flex; align-items: flex-end; padding: 1.5rem; position: relative; }
+  .cat-card-bg::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(30,10,0,0.75) 0%, transparent 55%); }
+  .cat-info { position: relative; z-index: 1; color: white; }
+  .cat-emoji { font-size: 2rem; margin-bottom: 0.3rem; }
+  .cat-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+  .cat-count { font-size: 0.8rem; opacity: 0.8; }
+  .cat-bg-1 { background: linear-gradient(135deg, #B5835A, #7A4A28); }
+  .cat-bg-2 { background: linear-gradient(135deg, #8FA78B, #4E6E53); }
+  .cat-bg-3 { background: linear-gradient(135deg, #C4906A, #8B4A20); }
+  .cat-bg-4 { background: linear-gradient(135deg, #A0876A, #5C3820); }
+
+  /* PRODUCTS */
+  .products { background: var(--cream); }
+  .prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .prod-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: box-shadow 0.3s, transform 0.2s; }
+  .prod-card:hover { box-shadow: 0 12px 40px rgba(90,40,10,0.12); transform: translateY(-3px); }
+  .prod-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; }
+  .prod-badge { position: absolute; top: 12px; left: 12px; background: var(--terracotta); color: white; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; }
+  .prod-body { padding: 1.1rem; }
+  .prod-cat { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.35rem; }
+  .prod-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--mahogany); margin-bottom: 0.6rem; }
+  .prod-stars { color: #D4873A; font-size: 0.8rem; margin-bottom: 0.6rem; }
+  .prod-stars span { color: var(--text-light); margin-left: 4px; }
+  .prod-price-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.8rem; }
+  .prod-price { font-size: 1.1rem; font-weight: 700; color: var(--terracotta-dark); }
+  .prod-price-old { font-size: 0.85rem; color: var(--text-light); text-decoration: line-through; margin-left: 6px; }
+  .add-btn { background: var(--terracotta); color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 1.3rem; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
+  .add-btn:hover { background: var(--terracotta-dark); }
+
+  /* PROMO */
+  .promo-banner { background: var(--mahogany); color: white; text-align: center; padding: 5rem 2rem; }
+  .promo-banner h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; color: var(--terracotta-light); }
+  .promo-banner p { font-size: 1.1rem; opacity: 0.8; font-weight: 300; max-width: 500px; margin: 0 auto 2rem; }
+
+  /* ABOUT */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; background: var(--warm-white); }
+  .about-visual { border-radius: 20px; overflow: hidden; aspect-ratio: 4/5; background: linear-gradient(160deg, #C4906A 0%, #7A4228 50%, #3D1F10 100%); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-family: 'Playfair Display', serif; font-size: 1.1rem; text-align: center; padding: 2rem; }
+  .about-text { padding: 2rem 0; }
+  .values-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .values-list li { display: flex; gap: 12px; align-items: flex-start; }
+  .val-icon { width: 36px; height: 36px; border-radius: 10px; background: #F5E8DF; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .val-text strong { display: block; color: var(--mahogany); font-size: 0.9rem; margin-bottom: 2px; }
+  .val-text span { font-size: 0.85rem; color: var(--text-light); }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--cream); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .testi-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+  .testi-stars { color: #D4873A; font-size: 1rem; margin-bottom: 1rem; }
+  .testi-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: var(--text-dark); line-height: 1.7; margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 10px; }
+  .author-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: white; flex-shrink: 0; }
+  .author-name { font-weight: 700; font-size: 0.88rem; color: var(--text-dark); }
+  .author-loc { font-size: 0.8rem; color: var(--text-light); }
+
+  /* NEWSLETTER */
+  .newsletter { background: var(--sage); text-align: center; color: white; padding: 5rem 2rem; }
+  .newsletter h2 { font-size: 2.2rem; color: white; margin-bottom: 0.8rem; }
+  .newsletter p { opacity: 0.88; font-weight: 300; margin-bottom: 2rem; font-size: 1.05rem; }
+  .email-form { display: flex; max-width: 480px; margin: 0 auto; border-radius: 50px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.15); }
+  .email-form input { flex: 1; padding: 14px 20px; border: none; background: transparent; color: white; font-family: 'Lato', sans-serif; font-size: 0.95rem; outline: none; }
+  .email-form input::placeholder { color: rgba(255,255,255,0.65); }
+  .email-form button { background: white; color: var(--sage); border: none; padding: 14px 24px; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 0 50px 50px 0; }
+
+  /* FOOTER */
+  footer { background: var(--mahogany); color: rgba(255,255,255,0.7); padding: 4rem 5vw 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-logo img { height: 60px; width: auto; margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.88rem; line-height: 1.8; max-width: 260px; }
+  .footer-col h4 { color: white; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.2rem; font-family: 'Lato', sans-serif; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul a { font-size: 0.88rem; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--terracotta-light); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+
+  /* CART */
+  .cart-overlay { display: none; position: fixed; inset: 0; background: rgba(20,8,0,0.55); z-index: 999; justify-content: flex-end; }
+  .cart-overlay.open { display: flex; }
+  .cart-panel { background: var(--warm-white); width: 380px; height: 100%; overflow-y: auto; padding: 2rem; display: flex; flex-direction: column; }
+  .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+  .cart-header h3 { font-size: 1.4rem; color: var(--mahogany); }
+  .close-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-mid); }
+  .cart-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-light); text-align: center; gap: 1rem; font-size: 3rem; }
+  .cart-empty p { font-size: 0.95rem; }
+  .cart-items { flex: 1; }
+  .cart-item { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .cart-item-img { width: 64px; height: 64px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; background: #F5E8DC; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+  .cart-item-price { font-size: 0.88rem; color: var(--terracotta); font-weight: 700; }
+  .remove-item { background: none; border: none; cursor: pointer; color: var(--text-light); font-size: 1rem; padding: 4px; }
+  .cart-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+  .cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; color: var(--mahogany); margin-bottom: 1.2rem; }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--terracotta-dark); color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; z-index: 9999; transition: transform 0.35s ease; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-image { min-height: 300px; }
+    .hero-text { padding: 3rem 2rem; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .prod-grid { grid-template-columns: repeat(2, 1fr); }
+    .about { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+
+  /* LEGAL MODALS */
+  .legal-overlay { display:none; position:fixed; inset:0; background:rgba(20,8,0,0.6); z-index:1000; justify-content:center; align-items:center; padding:2rem; }
+  .legal-overlay.open { display:flex; }
+  .legal-panel { background:var(--warm-white); border-radius:20px; max-width:700px; width:100%; max-height:85vh; overflow-y:auto; padding:3rem; position:relative; }
+  .legal-panel h2 { font-size:1.8rem; color:var(--mahogany); margin-bottom:0.5rem; }
+  .legal-panel h3 { font-size:1.1rem; color:var(--terracotta-dark); margin:1.5rem 0 0.5rem; }
+  .legal-panel p { font-size:0.9rem; color:var(--text-mid); line-height:1.8; margin-bottom:0.8rem; }
+  .legal-panel ul { padding-left:1.5rem; margin-bottom:0.8rem; }
+  .legal-panel ul li { font-size:0.9rem; color:var(--text-mid); line-height:1.8; }
+  .legal-close { position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-mid); }
+  .legal-date { font-size:0.8rem; color:var(--text-light); margin-bottom:2rem; }
+</style>
+<script src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="UNPSEENPHDPDG">
+  function openLegal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeLegal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" style="display:flex;align-items:center;"><img src="logo.png" alt="The Hearth Home" style="height:58px;width:auto;display:block;"/></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#" onclick="openCollection('all');return false;">Collections</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="cart-btn" onclick="openCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="hero-text">
+    <p class="hero-eyebrow">✦ New Arrivals Just Dropped</p>
+    <h1 class="hero-title">Make Your House Feel Like <em>Home</em></h1>
+    <p class="hero-subtitle">Handpicked cozy essentials for every room — décor, kitchen finds, bedding, and more. Curated with love, delivered to your door.</p>
+    <div class="hero-ctas">
+      <a href="#shop" class="btn-primary">Shop Now</a>
+      <a href="#" onclick="openCollection('all');return false;" class="btn-outline">Browse Collections</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-logo-center">
+      <img src="logo.png" alt="The Hearth Home"/>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">🚚 Free Shipping Over $50</div>
+  <div class="trust-item">↩️ Easy 30-Day Returns</div>
+  <div class="trust-item">🔒 Secure Checkout</div>
+  <div class="trust-item">💬 24/7 Customer Support</div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <p class="section-label">Shop by Collection</p>
+  <h2 class="section-title">Find Your Perfect Vibe</h2>
+  <p class="section-sub">Every home has a story. Find the pieces that tell yours.</p>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="openCollection('decor')">
+      <div class="cat-card-bg" style="background-image:url('Home_Decor.png');background-size:cover;background-position:center;">
+        <div class="cat-info"><div class="cat-name">Home Décor</div><div class="cat-count">3 items</div></div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="openCollection('kitchen')">
+      <div class="cat-card-bg" style="background-image:url('Kitchen_and_dining.png');background-size:cover;background-position:center;">
+        <div class="cat-info"><div class="cat-name">Kitchen & Dining</div><div class="cat-count">2 items</div></div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="openCollection('bedding')">
+      <div class="cat-card-bg" style="background-image:url('Bedding_and_cozy.png');background-size:cover;background-position:center;">
+        <div class="cat-info"><div class="cat-name">Bedding & Cozy</div><div class="cat-count">2 items</div></div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="openCollection('family')">
+      <div class="cat-card-bg" style="background-image:url('Family_Essentials.png');background-size:cover;background-position:center;">
+        <div class="cat-info"><div class="cat-name">Family Essentials</div><div class="cat-count">2 items</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="shop">
+  <p class="section-label">Featured Picks</p>
+  <h2 class="section-title">Cozy Finds You'll Love</h2>
+  <p class="section-sub">Our most-loved pieces — handpicked for warmth, quality, and that just-right feeling.</p>
+  <div class="prod-grid" id="products-grid">
+
+    <!-- HERO PRODUCT: Magic Humidifier -->
+    <div class="prod-card" data-cat="decor" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;" onclick="openProduct('humidifier')">
+      <div class="prod-img" style="background:#1a1a2e;aspect-ratio:unset;min-height:280px;position:relative;overflow:hidden;cursor:pointer;">
+        <img src="humidifier_main.png" alt="Magic Shadow Humidifier" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:5rem;">💧✨</div>
+        <span class="prod-badge" style="background:#FF6B35;">🏆 #1 Best Seller</span>
+      </div>
+      <div class="prod-body" style="padding:2rem;display:flex;flex-direction:column;justify-content:center;">
+        <div class="prod-cat">Home Décor · Wellness</div>
+        <div class="prod-name" style="font-size:1.3rem;">Magic Shadow USB Humidifier with Projection Night Lights</div>
+        <div style="font-size:0.85rem;color:var(--text-mid);margin:0.5rem 0 0.8rem;line-height:1.6;">Not just a humidifier — creates a magical glowing atmosphere in any room!</div>
+        <div class="prod-stars">★★★★★ <span>(22,382 sold · US Stock)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin:0.4rem 0 0.8rem;">🚚 Ships USA · 3–8 Days · Multiple Colors</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$34.99</span> <span class="prod-price-old">$45</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Magic Shadow USB Humidifier','$34.99','💧')" style="width:auto;border-radius:50px;padding:10px 20px;font-size:0.85rem;font-weight:700;">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wireless USB Wall Lamp -->
+    <div class="prod-card" data-cat="decor" onclick="openProduct('walllamp')">
+      <div class="prod-img" style="background:#1C1C2E;cursor:pointer;overflow:hidden;">
+        <img src="walllamp_main.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+        <span class="prod-badge">Hot</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Home Décor</div>
+        <div class="prod-name">Wireless USB Rechargeable Wall Lamp</div>
+        <div class="prod-stars">★★★★★ <span>(2,704 sold)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin-bottom:0.4rem;">🚚 Free Shipping</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$22.99</span> <span class="prod-price-old">$32</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Wireless USB Wall Lamp','$22.99','💡')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Creative Bedroom Wall Lamp -->
+    <div class="prod-card" data-cat="decor" onclick="openProduct('bedlamp')">
+      <div class="prod-img" style="background:#F5E8DC;cursor:pointer;overflow:hidden;">
+        <img src="bedlamp_lifestyle.jpg" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+        <span class="prod-badge">New</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Home Décor</div>
+        <div class="prod-name">Creative Bedroom Wall Lamp</div>
+        <div class="prod-stars">★★★★★ <span>(63 sold)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin-bottom:0.4rem;">🚚 Free Shipping</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$29.99</span> <span class="prod-price-old">$40</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Creative Bedroom Wall Lamp','$29.99','🪔')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Magnetic Meal Planner -->
+    <div class="prod-card" data-cat="family" onclick="openProduct('planner')">
+      <div class="prod-img" style="background:#F5F0E8;cursor:pointer;overflow:hidden;">
+        <img src="planner_main.jpg" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+        <span class="prod-badge">⭐ Top Pick</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Family Essentials</div>
+        <div class="prod-name">Magnetic Fridge Meal Planner Board</div>
+        <div class="prod-stars">★★★★★ <span>(5.0 · US Stock)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin-bottom:0.4rem;">🚚 Free Shipping · 3–7 Days USA</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$27.99</span> <span class="prod-price-old">$35</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Magnetic Fridge Meal Planner Board','$27.99','📋')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Whiteboard -->
+    <div class="prod-card" data-cat="family" onclick="openProduct('whiteboard')">
+      <div class="prod-img" style="background:#EEF0F5;cursor:pointer;overflow:hidden;">
+        <img src="whiteboard_main.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+        <span class="prod-badge">New</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Family Essentials</div>
+        <div class="prod-name">Desktop Tempered Glass Whiteboard</div>
+        <div class="prod-stars">★★★★★ <span>(New Arrival)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin-bottom:0.4rem;">🚚 Free Shipping</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$24.99</span> <span class="prod-price-old">$32</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Desktop Tempered Glass Whiteboard','$24.99','🗒️')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flannel Blanket -->
+    <div class="prod-card" data-cat="bedding" onclick="openProduct('flannel')">
+      <div class="prod-img" style="background:#F5E8DC;cursor:pointer;overflow:hidden;">
+        <img src="flannel_main.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+        <span class="prod-badge">Bestseller</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Bedding & Cozy</div>
+        <div class="prod-name">Thickened Flannel Lamb Wool Blanket</div>
+        <div class="prod-stars">★★★★★ <span>(753 sold)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin-bottom:0.4rem;">🚚 Free Shipping</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$38.99</span> <span class="prod-price-old">$55</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Thickened Flannel Lamb Wool Blanket','$38.99','🛋️')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bubble Velvet Blanket -->
+    <div class="prod-card" data-cat="bedding" onclick="openProduct('velvet')">
+      <div class="prod-img" style="background:#EDE8F2;cursor:pointer;">
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;">🧸</div>
+        <span class="prod-badge">New</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Bedding & Cozy</div>
+        <div class="prod-name">Soft Bubble Velvet Rabbit Fur Blanket</div>
+        <div class="prod-stars">★★★★★ <span>(2,388 sold)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin-bottom:0.4rem;">🚚 Free Shipping · Multiple Colors</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$32.99</span> <span class="prod-price-old">$45</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Soft Bubble Velvet Rabbit Fur Blanket','$32.99','🧸')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ceramic Coffee Mug -->
+    <div class="prod-card" data-cat="kitchen" onclick="openProduct('mug')">
+      <div class="prod-img" style="background:#EEE5D8;cursor:pointer;overflow:hidden;">
+        <img src="mug_main.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+        <span class="prod-badge">Popular</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Kitchen & Dining</div>
+        <div class="prod-name">Ceramic Coffee Mug</div>
+        <div class="prod-stars">★★★★★ <span>(33 sold)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin-bottom:0.4rem;">🚚 Free Shipping</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$19.99</span> <span class="prod-price-old">$28</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Ceramic Coffee Mug','$19.99','☕')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stoneware Mug -->
+    <div class="prod-card" data-cat="kitchen" onclick="openProduct('stoneware')">
+      <div class="prod-img" style="background:#F0E8DF;cursor:pointer;overflow:hidden;">
+        <img src="stoneware_main.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+        <span class="prod-badge">New</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Kitchen & Dining</div>
+        <div class="prod-name">Stoneware Vintage Household Mug</div>
+        <div class="prod-stars">★★★★★ <span>(28 sold)</span></div>
+        <div style="font-size:0.78rem;color:var(--sage);margin-bottom:0.4rem;">🚚 Free Shipping</div>
+        <div class="prod-price-row">
+          <div><span class="prod-price">$24.99</span> <span class="prod-price-old">$35</span></div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Stoneware Vintage Household Mug','$24.99','🍵')">+</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about" style="padding:5rem 5vw;">
+  <div class="about-visual" style="background:none;padding:0;">
+    <img src="Our_story.png" alt="HearthHome Family" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"/>
+  </div>
+  <div class="about-text">
+    <p class="section-label">Our Story</p>
+    <h2 class="section-title">A Home Should Feel Like a Hug</h2>
+    <p style="color:var(--text-mid);font-weight:300;line-height:1.9;margin-bottom:1rem;">The HearthHome was born from a simple belief: your home should be a place that truly reflects who you are — warm, welcoming, and full of love.</p>
+    <p style="color:var(--text-mid);font-weight:300;line-height:1.9;">We hand-pick every product with families in mind, sourcing quality pieces that bring comfort, beauty, and functionality to everyday life.</p>
+    <ul class="values-list">
+      <li><div class="val-icon">🌿</div><div class="val-text"><strong>Thoughtfully Curated</strong><span>Every item is chosen for quality, comfort, and character.</span></div></li>
+      <li><div class="val-icon">❤️</div><div class="val-text"><strong>Family First</strong><span>Designed for real homes with real families.</span></div></li>
+      <li><div class="val-icon">✨</div><div class="val-text"><strong>Affordable Comfort</strong><span>Beautiful pieces that don't break the bank.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <p class="section-label">Happy Customers</p>
+  <h2 class="section-title">Loved by Families Everywhere</h2>
+  <p class="section-sub">Don't just take our word for it — here's what our HearthHome family is saying.</p>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"The chunky knit blanket is absolutely gorgeous. It arrived so fast and feels incredibly luxurious — my living room looks like a magazine now!"</p><div class="testi-author"><div class="author-avatar" style="background:#C4673A;">SM</div><div><div class="author-name">Sarah M.</div><div class="author-loc">Texas, USA</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"Ordered the mug set as a gift for my mom and she absolutely loves it. The quality is better than anything I've found in stores at double the price."</p><div class="testi-author"><div class="author-avatar" style="background:#7A9177;">JR</div><div><div class="author-name">James R.</div><div class="author-loc">Oregon, USA</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"HearthHome has become my go-to for home gifts. Everything is so thoughtfully chosen — you can just tell someone with taste picked these items."</p><div class="testi-author"><div class="author-avatar" style="background:#8B3E1F;">AL</div><div><div class="author-name">Anika L.</div><div class="author-loc">Florida, USA</div></div></div></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter" style="padding:5rem 2rem;">
+  <h2>Join the HearthHome Family</h2>
+  <p>Get cozy finds, home inspiration, and exclusive deals delivered to your inbox.</p>
+  <div class="email-form">
+    <input type="email" placeholder="Your email address" id="email-input"/>
+    <button onclick="subscribeEmail()">Get 10% Off</button>
+  </div>
+  <p style="margin-top:1rem;font-size:0.78rem;opacity:0.65;">No spam, ever. Unsubscribe anytime. 💛</p>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo"><img src="logo.png" alt="The Hearth Home"/></div>
+      <p>Making homes cozier, one handpicked piece at a time. Curated with love for families everywhere.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="#shop">New Arrivals</a></li><li><a href="#categories">Home Décor</a></li><li><a href="#categories">Kitchen & Dining</a></li><li><a href="#categories">Bedding & Cozy</a></li><li><a href="#categories">Family Essentials</a></li></ul></div>
+    <div class="footer-col"><h4>Help</h4><ul><li><a href="#" onclick="showPolicy('shipping');return false;">Shipping Info</a></li><li><a href="#" onclick="showPolicy('refund');return false;">Returns & Refunds</a></li><li><a href="#" onclick="showPolicy('tracking');return false;">Track My Order</a></li><li><a href="#" onclick="showPolicy('faq');return false;">FAQ</a></li><li><a href="#" onclick="showPolicy('contact');return false;">Contact Us</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#" onclick="showPolicy('privacy');return false;">Privacy Policy</a></li><li><a href="#" onclick="showPolicy('terms');return false;">Terms of Service</a></li><li><a href="#" onclick="showPolicy('affiliate');return false;">Affiliate Program</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 The HearthHome. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="#" onclick="showPolicy('privacy');return false;" style="color:rgba(255,255,255,0.5);font-size:0.8rem;">Privacy Policy</a>
+      <a href="#" onclick="showPolicy('refund');return false;" style="color:rgba(255,255,255,0.5);font-size:0.8rem;">Refund Policy</a>
+      <a href="#" onclick="showPolicy('shipping');return false;" style="color:rgba(255,255,255,0.5);font-size:0.8rem;">Shipping Policy</a>
+      <a href="#" onclick="showPolicy('terms');return false;" style="color:rgba(255,255,255,0.5);font-size:0.8rem;">Terms of Service</a>
+    </div>
+    <span>Made with 🧡 for cozy homes everywhere</span>
+  </div>
+</footer>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCartOnOverlay(event)">
+  <div class="cart-panel">
+    <div class="cart-header"><h3>Your Cart 🛒</h3><button class="close-btn" onclick="closeCart()">✕</button></div>
+    <div id="cart-body" class="cart-empty"><div>🛍️</div><p>Your cart is empty.<br/>Start adding cozy things!</p></div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total"><span>Total</span><span id="cart-total">$0.00</span></div>
+      <button class="btn-primary" style="width:100%;text-align:center;display:block;padding:16px;" onclick="checkout()">Checkout →</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let cart = [];
+  function addToCart(name, price, emoji) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) { existing.qty++; } else { cart.push({ name, price, emoji, qty: 1 }); }
+    updateCart(); showToast('🛒 ' + name + ' added!');
+  }
+  function updateCart() {
+    const count = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cart-count').textContent = count;
+    const body = document.getElementById('cart-body');
+    const footer = document.getElementById('cart-footer');
+    if (cart.length === 0) {
+      body.className = 'cart-empty';
+      body.innerHTML = '<div>🛍️</div><p>Your cart is empty.<br/>Start adding cozy things!</p>';
+      footer.style.display = 'none'; return;
+    }
+    body.className = 'cart-items';
+    let total = 0;
+    body.innerHTML = cart.map((item, idx) => {
+      const price = parseFloat(item.price.replace('$',''));
+      total += price * item.qty;
+      return `<div class="cart-item"><div class="cart-item-img">${item.emoji}</div><div class="cart-item-info"><div class="cart-item-name">${item.name} ${item.qty > 1 ? 'x'+item.qty : ''}</div><div class="cart-item-price">${item.price}</div></div><button class="remove-item" onclick="removeItem(${idx})">✕</button></div>`;
+    }).join('');
+    footer.style.display = 'block';
+    document.getElementById('cart-total').textContent = '$' + total.toFixed(2);
+  }
+  function removeItem(idx) { cart.splice(idx, 1); updateCart(); }
+  function openCart() { document.getElementById('cart-overlay').classList.add('open'); }
+  function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); }
+  function closeCartOnOverlay(e) { if (e.target === document.getElementById('cart-overlay')) closeCart(); }
+  function checkout() {
+    if (cart.length === 0) { showToast('⚠️ Your cart is empty!'); return; }
+    let total = cart.reduce((s, i) => s + parseFloat(i.price.replace('$','')) * i.qty, 0);
+    let paypalUrl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_cart&business=UNPSEENPHDPDG&currency_code=USD&amount=' + total.toFixed(2) + '&item_name=The+Hearth+Home+Order&upload=1';
+    showToast('🚀 Redirecting to PayPal checkout...');
+    setTimeout(() => window.open(paypalUrl, '_blank'), 800);
+  }
+  function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
+  function subscribeEmail() { const val = document.getElementById('email-input').value; if (!val || !val.includes('@')) { showToast('⚠️ Please enter a valid email'); return; } showToast('💛 Welcome to the HearthHome family!'); document.getElementById('email-input').value = ''; }
+  function filterProducts(cat) {
+    document.querySelectorAll('.prod-card').forEach(c => { c.style.opacity = (c.dataset.cat === cat) ? '1' : '0.35'; });
+    document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => { document.querySelectorAll('.prod-card').forEach(c => { c.style.opacity = '1'; }); }, 2500);
+  }
+</script>
+
+<!-- PRIVACY POLICY MODAL -->
+<div class="legal-overlay" id="privacy-overlay" onclick="closeLegal('privacy-overlay')">
+  <div class="legal-panel" onclick="event.stopPropagation()">
+    <button class="legal-close" onclick="closeLegal('privacy-overlay')">✕</button>
+    <h2>Privacy Policy</h2>
+    <p class="legal-date">Last updated: June 2025</p>
+    <p>The Hearth Home ("we," "us," or "our") is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you visit thehearthhome.com.</p>
+    <h3>Information We Collect</h3>
+    <ul>
+      <li>Name, email address, and shipping address when you place an order</li>
+      <li>Payment information (processed securely through PayPal — we never store card details)</li>
+      <li>Browsing data such as pages visited and time spent on site</li>
+      <li>Email address if you subscribe to our newsletter</li>
+    </ul>
+    <h3>How We Use Your Information</h3>
+    <ul>
+      <li>To process and fulfill your orders</li>
+      <li>To send order confirmations and shipping updates</li>
+      <li>To send promotional emails (you can unsubscribe at any time)</li>
+      <li>To improve our website and customer experience</li>
+    </ul>
+    <h3>Sharing Your Information</h3>
+    <p>We do not sell your personal information. We share your data only with trusted third parties necessary to fulfill your order, including our dropshipping supplier (CJ Dropshipping) and payment processor (PayPal).</p>
+    <h3>Cookies</h3>
+    <p>We use cookies to enhance your browsing experience. You can disable cookies in your browser settings, though this may affect site functionality.</p>
+    <h3>Your Rights</h3>
+    <p>You have the right to access, correct, or delete your personal data at any time. Contact us at support@thehearthhome.com for any privacy-related requests.</p>
+    <h3>Contact Us</h3>
+    <p>For privacy concerns, email us at: support@thehearthhome.com</p>
+  </div>
+</div>
+
+<!-- REFUND POLICY MODAL -->
+<div class="legal-overlay" id="refund-overlay" onclick="closeLegal('refund-overlay')">
+  <div class="legal-panel" onclick="event.stopPropagation()">
+    <button class="legal-close" onclick="closeLegal('refund-overlay')">✕</button>
+    <h2>Refund & Returns Policy</h2>
+    <p class="legal-date">Last updated: June 2025</p>
+    <p>We want you to love every purchase from The Hearth Home. If you're not completely satisfied, we're here to help.</p>
+    <h3>Return Window</h3>
+    <p>You have <strong>30 days</strong> from the date you received your item to request a return or refund.</p>
+    <h3>Eligibility</h3>
+    <ul>
+      <li>Item must be unused and in original condition</li>
+      <li>Item must be in original packaging</li>
+      <li>Proof of purchase (order confirmation email) is required</li>
+    </ul>
+    <h3>Non-Returnable Items</h3>
+    <ul>
+      <li>Items damaged due to misuse or normal wear and tear</li>
+      <li>Items returned after the 30-day window</li>
+      <li>Personalized or custom-made items</li>
+    </ul>
+    <h3>Refund Process</h3>
+    <p>Once we receive and inspect your return, we will notify you of the approval or rejection of your refund. If approved, your refund will be processed to your original payment method within 5–10 business days.</p>
+    <h3>Damaged or Wrong Items</h3>
+    <p>If you received a damaged, defective, or wrong item, please contact us within 7 days of delivery with photos and we will send a replacement or full refund at no cost to you.</p>
+    <h3>How to Start a Return</h3>
+    <p>Email us at support@thehearthhome.com with your order number and reason for return. We'll guide you through the process.</p>
+  </div>
+</div>
+
+<!-- SHIPPING POLICY MODAL -->
+<div class="legal-overlay" id="shipping-overlay" onclick="closeLegal('shipping-overlay')">
+  <div class="legal-panel" onclick="event.stopPropagation()">
+    <button class="legal-close" onclick="closeLegal('shipping-overlay')">✕</button>
+    <h2>Shipping Policy</h2>
+    <p class="legal-date">Last updated: June 2025</p>
+    <p>We partner with CJ Dropshipping to deliver your orders. Here's everything you need to know about shipping from The Hearth Home.</p>
+    <h3>Processing Time</h3>
+    <p>Orders are processed within <strong>1–3 business days</strong> after payment confirmation.</p>
+    <h3>Shipping Times</h3>
+    <ul>
+      <li><strong>United States:</strong> 3–8 business days (US warehouse stock)</li>
+      <li><strong>International:</strong> 10–20 business days</li>
+      <li>Some items ship from China and may take 15–25 business days</li>
+    </ul>
+    <h3>Shipping Costs</h3>
+    <ul>
+      <li><strong>Free shipping</strong> on orders over 0</li>
+      <li>Standard shipping: .99 for orders under 0</li>
+    </ul>
+    <h3>Tracking Your Order</h3>
+    <p>Once your order ships, you will receive a tracking number via email. You can use this to track your package through the carrier's website.</p>
+    <h3>Delays</h3>
+    <p>Shipping times may be affected by holidays, weather, or high-demand periods. We are not responsible for carrier delays but will do our best to assist you.</p>
+    <h3>Lost or Stolen Packages</h3>
+    <p>If your package is lost in transit, contact us at support@thehearthhome.com and we will work with the carrier to resolve the issue or send a replacement.</p>
+    <h3>Contact Us</h3>
+    <p>For shipping questions, email: support@thehearthhome.com</p>
+  </div>
+</div>
+
+
+<!-- COLLECTIONS PAGE OVERLAY -->
+<div id="collections-overlay" style="display:none;position:fixed;inset:0;background:var(--cream);z-index:500;overflow-y:auto;">
+
+  <!-- Collections Header -->
+  <div style="background:var(--warm-white);border-bottom:1px solid var(--border);padding:1rem 5vw;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
+    <button onclick="closeCollection()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(--text-mid);font-family:'Lato',sans-serif;font-size:0.9rem;font-weight:700;">
+      ← Back to Home
+    </button>
+    <a href="#" style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--terracotta-dark);">Hearth<span style="font-style:italic;color:var(--terracotta);">Home</span></a>
+    <div style="width:120px;"></div>
+  </div>
+
+  <!-- Category Tabs -->
+  <div style="background:var(--warm-white);border-bottom:1px solid var(--border);padding:0 5vw;display:flex;gap:0;overflow-x:auto;">
+    <button onclick="switchCollection('all')" id="tab-all" class="col-tab active-tab">All Products</button>
+    <button onclick="switchCollection('decor')" id="tab-decor" class="col-tab">Home Décor</button>
+    <button onclick="switchCollection('kitchen')" id="tab-kitchen" class="col-tab">Kitchen & Dining</button>
+    <button onclick="switchCollection('bedding')" id="tab-bedding" class="col-tab">Bedding & Cozy</button>
+    <button onclick="switchCollection('family')" id="tab-family" class="col-tab">Family Essentials</button>
+  </div>
+
+  <!-- Collection Hero Banner -->
+  <div id="collection-banner" style="position:relative;height:220px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+    <div id="collection-banner-bg" style="position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(0.6);"></div>
+    <div style="position:relative;z-index:1;text-align:center;color:white;">
+      <p id="collection-label" style="font-size:0.8rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.85;margin-bottom:0.5rem;">Collection</p>
+      <h2 id="collection-title" style="font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:0.5rem;">All Products</h2>
+      <p id="collection-desc" style="font-size:1rem;opacity:0.9;font-weight:300;">Handpicked cozy essentials for every room</p>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div style="padding:3rem 5vw;">
+    <div id="collection-products" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;"></div>
+  </div>
+
+</div>
+
+
+<style>
+.col-tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.col-tab:hover { color: var(--terracotta); }
+.active-tab { color: var(--terracotta) !important; border-bottom-color: var(--terracotta) !important; }
+</style>
+
+
+<!-- POLICY MODAL -->
+<div id="policy-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;overflow-y:auto;padding:2rem 1rem;">
+  <div style="max-width:700px;margin:0 auto;background:var(--warm-white);border-radius:20px;padding:3rem;position:relative;">
+    <button onclick="closePolicy()" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-mid);">X</button>
+    <div id="policy-content"></div>
+  </div>
+</div>
+
+<script>
+var policies = {};
+policies.privacy = '<h2 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1.5rem;">Privacy Policy</h2><p style="color:#8C6E5A;margin-bottom:1.5rem;font-size:0.85rem;">Last updated: June 2025</p><p style="margin-bottom:1rem;color:#5C4033;line-height:1.8;">At The HearthHome, we are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you visit thehearthhome.com.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Information We Collect</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">We collect your name, email address, shipping address, and payment information when you place an order. We also collect browsing data such as IP address and pages visited to improve our website.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">How We Use Your Information</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">We use your information to process orders, send confirmations, provide customer support, and improve our services. We do not sell your personal information to third parties.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Contact Us</h4><p style="color:#5C4033;line-height:1.8;">Email: <strong>support.thehearthhome@gmail.com</strong></p>';
+
+policies.refund = '<h2 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1.5rem;">Refund and Returns Policy</h2><p style="color:#8C6E5A;margin-bottom:1.5rem;font-size:0.85rem;">Last updated: June 2025</p><p style="margin-bottom:1rem;color:#5C4033;line-height:1.8;">We want you to love every item from The HearthHome. If something is not right, we are here to help.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">30-Day Return Policy</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">We accept returns within 30 days of delivery. Items must be unused and in original packaging. To initiate a return, email support.thehearthhome@gmail.com with your order number.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Eligible for Refund</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">Damaged or defective items upon arrival</p><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">Wrong item received</p><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Item never arrived after 45 days</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Refund Process</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Refunds are processed within 5-10 business days to your original payment method once approved.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Contact Us</h4><p style="color:#5C4033;line-height:1.8;">Email: <strong>support.thehearthhome@gmail.com</strong></p>';
+
+policies.shipping = '<h2 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1.5rem;">Shipping Policy</h2><p style="color:#8C6E5A;margin-bottom:1.5rem;font-size:0.85rem;">Last updated: June 2025</p><p style="margin-bottom:1rem;color:#5C4033;line-height:1.8;">Thank you for shopping at The HearthHome! Here is everything you need to know about shipping.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Processing Time</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Orders are processed within 1-3 business days after payment. You will receive tracking information once shipped.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Shipping Times</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">United States: 7-15 business days</p><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">International: 15-30 business days</p><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">US Stock items: 3-8 business days</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Shipping Costs</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">Free shipping on all orders over $50</p><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Orders under $50: flat rate of $4.99</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Contact Us</h4><p style="color:#5C4033;line-height:1.8;">Email: <strong>support.thehearthhome@gmail.com</strong></p>';
+
+policies.terms = '<h2 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1.5rem;">Terms of Service</h2><p style="color:#8C6E5A;margin-bottom:1.5rem;font-size:0.85rem;">Last updated: June 2025</p><p style="margin-bottom:1rem;color:#5C4033;line-height:1.8;">By using thehearthhome.com, you agree to these Terms of Service.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Products and Pricing</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">All products are subject to availability. Prices are in USD and may change without notice. We reserve the right to cancel orders due to pricing errors.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Payment</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">We accept PayPal, credit card, and debit card. All transactions are securely processed through PayPal.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Limitation of Liability</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">The HearthHome is not liable for indirect or consequential damages. Our maximum liability is limited to the amount paid for the product.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Contact Us</h4><p style="color:#5C4033;line-height:1.8;">Email: <strong>support.thehearthhome@gmail.com</strong></p>';
+
+function showPolicy(type) {
+  document.getElementById('policy-content').innerHTML = policies[type];
+  document.getElementById('policy-modal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closePolicy() {
+  document.getElementById('policy-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+policies.tracking = '<h2 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1.5rem;">Track My Order</h2><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Once your order ships, you will receive a tracking number via email at <strong>support.thehearthhome@gmail.com</strong>.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">How to Track</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">1. Go to <strong>17track.net</strong></p><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">2. Enter your tracking number</p><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">3. Click Track to see your order status</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Estimated Delivery Times</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">US Stock items: 3-8 business days</p><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Standard shipping: 7-15 business days</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Need Help?</h4><p style="color:#5C4033;line-height:1.8;">Email us at <strong>support.thehearthhome@gmail.com</strong> with your order number.</p>';
+
+policies.faq = '<h2 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1.5rem;">Frequently Asked Questions</h2><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">How long does shipping take?</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">US Stock items arrive in 3-8 business days. Standard items take 7-15 business days. You will receive tracking info by email once shipped.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">How do I return an item?</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Email support.thehearthhome@gmail.com within 30 days of delivery with your order number. We will guide you through the return process.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">What payment methods do you accept?</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">We accept PayPal, Visa, Mastercard, and debit cards via PayPal secure checkout.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Can I change or cancel my order?</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Contact us within 24 hours of placing your order at support.thehearthhome@gmail.com. Once shipped, we cannot cancel.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Are your products safe and quality checked?</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:1rem;">Yes! All products are sourced from verified suppliers on CJ Dropshipping with quality checks before shipping.</p><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Do you ship internationally?</h4><p style="color:#5C4033;line-height:1.8;">Yes, we ship worldwide! International orders take 15-30 business days.</p>';
+
+policies.contact = '<h2 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1.5rem;">Contact Us</h2><p style="color:#5C4033;line-height:1.8;margin-bottom:2rem;">We would love to hear from you! Whether you have a question about your order, a product, or just want to say hello.</p><div style="background:#FAF6F0;border-radius:16px;padding:2rem;margin-bottom:1.5rem;"><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1rem;">Email Support</h4><p style="color:#5C4033;line-height:1.8;">📧 <strong>support.thehearthhome@gmail.com</strong></p><p style="color:#8C6E5A;font-size:0.85rem;margin-top:0.5rem;">We respond within 24-48 hours on business days.</p></div><div style="background:#FAF6F0;border-radius:16px;padding:2rem;margin-bottom:1.5rem;"><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1rem;">Business Hours</h4><p style="color:#5C4033;line-height:1.8;">Monday - Friday: 9:00 AM - 6:00 PM (PHT)</p><p style="color:#5C4033;line-height:1.8;">Saturday: 10:00 AM - 3:00 PM (PHT)</p><p style="color:#5C4033;line-height:1.8;">Sunday: Closed</p></div><div style="background:#FAF6F0;border-radius:16px;padding:2rem;"><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1rem;">Website</h4><p style="color:#5C4033;line-height:1.8;">🌐 thehearthhome.com</p></div>';
+
+policies.affiliate = '<h2 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1.5rem;">Affiliate Program</h2><p style="color:#5C4033;line-height:1.8;margin-bottom:1.5rem;">Love HearthHome? Earn money by sharing our products with your friends and family!</p><div style="background:#FAF6F0;border-radius:16px;padding:2rem;margin-bottom:1.5rem;"><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1rem;">How It Works</h4><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">1. Sign up as a HearthHome affiliate</p><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">2. Get your unique referral link</p><p style="color:#5C4033;line-height:1.8;margin-bottom:0.5rem;">3. Share it with your audience</p><p style="color:#5C4033;line-height:1.8;">4. Earn commission on every sale!</p></div><div style="background:#FAF6F0;border-radius:16px;padding:2rem;margin-bottom:1.5rem;"><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin-bottom:1rem;">Commission Rate</h4><p style="color:#C4673A;font-size:1.5rem;font-weight:700;">10% per sale</p><p style="color:#8C6E5A;font-size:0.85rem;margin-top:0.5rem;">Paid monthly via PayPal</p></div><h4 style="font-family:Playfair Display,serif;color:#3D1F0F;margin:1.5rem 0 0.5rem;">Apply Now</h4><p style="color:#5C4033;line-height:1.8;">Email us at <strong>support.thehearthhome@gmail.com</strong> with subject line "Affiliate Application" to get started!</p>';
+
+document.getElementById('policy-modal').addEventListener('click', function(e) {
+  if (e.target === this) closePolicy();
+});
+
+
+// ── COLLECTIONS DATA ──
+var allProducts = [
+  {
+    id: 'humidifier', cat: 'decor',
+    name: 'Magic Shadow USB Humidifier with Projection Night Lights',
+    short: 'Not just a humidifier — it transforms your room into a magical sanctuary with glowing light projections!',
+    price: '$34.99', old: '$45.00', emoji: '💧✨',
+    bg: 'linear-gradient(135deg,#1a1a2e,#16213e)',
+    badge: '🏆 Best Seller',
+    stars: 5, reviews: 22382,
+    shipping: '🚚 US Stock · Ships 3–8 Days',
+    mainImg: 'humidifier_main.png',
+    thumbs: ['humidifier_1.jpg','humidifier_2.jpg','humidifier_3.jpg','humidifier_4.jpg'],
+    colors: ['⚫ Black','⚪ White','🔵 Blue','🩷 Pink','🩵 Mint'],
+    details: 'Transform your living space into a cozy sanctuary with the Magic Shadow Humidifier. Watch in wonder as it casts beautiful tree-like shadow projections across your walls while silently humidifying the air. Available in 5 stunning colors to match any home aesthetic — perfect as a gift for the whole family.',
+    features: ['USB Powered — works with any adapter','Magical Projection Night Lights','5 Beautiful Colors Available','Ultrasonic Silent Mist Technology','Auto Shut-off Safety Feature','Perfect for Bedroom & Living Room','Crystal Clear Water Tank','Easy to Fill & Clean']
+  },
+  {
+    id: 'walllamp', cat: 'decor',
+    name: 'Wireless USB Rechargeable Decor Wall Lamp',
+    short: 'Elegant wall lighting with motion sensing. No wiring needed — just mount and glow!',
+    price: '$22.99', old: '$32.00', emoji: '💡',
+    bg: '#1C1C2E',
+    badge: 'Hot',
+    stars: 5, reviews: 2704,
+    shipping: '🚚 Free Shipping',
+    mainImg: 'walllamp_main.png',
+    thumbs: [],
+    colors: ['⚫ Black','🤍 White'],
+    details: 'Instantly elevate any room with this wireless rechargeable wall lamp. Features built-in motion sensing that automatically turns on when you enter a room. Perfect for hallways, bedrooms, living rooms, and more. No electrical work needed — simply charge and mount anywhere.',
+    features: ['Motion Body Sensing Technology','Rechargeable Battery — No Wiring','Warm White Ambient Light','Easy Mount — No Tools Needed','Perfect for Hallways & Bedrooms','USB Rechargeable','Adjustable Brightness','Energy Efficient LED']
+  },
+  {
+    id: 'bedlamp', cat: 'decor',
+    name: 'Creative Bedroom Wall Lamp',
+    short: 'A minimalist wall lamp that fills your bedroom with warm, cozy light — the perfect finishing touch.',
+    price: '$29.99', old: '$40.00', emoji: '🪔',
+    bg: '#F5E8DC',
+    badge: 'New',
+    stars: 5, reviews: 63,
+    shipping: '🚚 Free Shipping',
+    mainImg: 'bedlamp_lifestyle.jpg',
+    thumbs: ['bedlamp_main.png'],
+    colors: ['🟫 Terracotta','⬜ White','🖤 Black'],
+    details: 'This beautifully designed bedroom wall lamp creates a warm, inviting atmosphere in any space. The ribbed cylindrical design casts soft light both up and down the wall, creating a beautiful glow effect. Pairs perfectly with natural wood furniture and cozy home decor.',
+    features: ['Up & Down Light Direction','Warm White 3000K Light','Elegant Ribbed Design','Easy Wall Installation','Energy Efficient','Perfect for Bedroom & Living Room','3 Color Options','Modern Farmhouse Style']
+  },
+  {
+    id: 'planner', cat: 'family',
+    name: 'Magnetic Fridge Meal Planner Board',
+    short: 'Plan the whole week in seconds! Sticks right to your fridge and keeps your family organized.',
+    price: '$27.99', old: '$35.00', emoji: '📋',
+    bg: '#F5F0E8',
+    badge: '⭐ Top Pick',
+    stars: 5, reviews: 156,
+    shipping: '🚚 Free Shipping · 3–7 Days USA',
+    mainImg: 'planner_main.jpg',
+    thumbs: ['planner_lifestyle.jpg'],
+    colors: [],
+    details: 'Say goodbye to the nightly dinner debate! This large magnetic meal planner sticks directly to your fridge and lets you plan all 7 days at a glance. Comes with colorful markers and an eraser — kids love writing on it too! A must-have for every busy family kitchen.',
+    features: ['Large 30x40cm Size','Magnetic — Sticks to Any Fridge','7-Day Planning Grid','Includes 3 Colored Markers + Eraser','Dry Erase Surface','Kid Friendly & Fun to Use','Perfect Family Organization Tool','Reusable — Write & Wipe Clean']
+  },
+  {
+    id: 'whiteboard', cat: 'family',
+    name: 'Desktop Tempered Glass Whiteboard',
+    short: 'Your family command center on your desk — write tasks, erase, and stay organized every day!',
+    price: '$24.99', old: '$32.00', emoji: '🗒️',
+    bg: '#EEF0F5',
+    badge: 'New',
+    stars: 5, reviews: 28,
+    shipping: '🚚 Free Shipping',
+    mainImg: 'whiteboard_main.png',
+    thumbs: ['whiteboard_features.jpg'],
+    colors: ['⬜ White'],
+    details: 'This premium tempered glass desktop whiteboard is the ultimate family productivity tool. Use it for daily tasks, grocery lists, homework reminders, and more. Features a built-in storage compartment for your phone and tablet, plus pen holders. Sleek and modern for any home office or kitchen counter.',
+    features: ['Premium Tempered Glass Surface','Built-in Tablet & Phone Stand','Dual Pen Holders','Includes Marker & Eraser','Anti-Ghosting Surface','Multi-Function Design','Easy Wipe Clean','Modern White Design']
+  },
+  {
+    id: 'flannel', cat: 'bedding',
+    name: 'Thickened Flannel Lamb Wool Blanket',
+    short: 'Ultra-soft, double-layer warmth for the whole family. Your new favorite cozy companion!',
+    price: '$38.99', old: '$55.00', emoji: '🛋️',
+    bg: '#F5E8DC',
+    badge: 'Bestseller',
+    stars: 5, reviews: 753,
+    shipping: '🚚 Free Shipping',
+    mainImg: 'flannel_main.png',
+    thumbs: ['flannel_navy.jpg','flannel_burgundy.jpg'],
+    colors: ['🟫 Terracotta','🟢 Sage Green','🔵 Navy Blue','🔴 Burgundy','⬜ Cream'],
+    details: 'Wrap your family in pure comfort with this luxuriously thick double-layer flannel blanket. One side features ultra-soft flannel and the other a plush lamb wool lining — making it twice as warm and cozy. Large enough for two people to snuggle under. The perfect gift for any home.',
+    features: ['Double-Layer Construction','Lamb Wool & Flannel Combo','Machine Washable','5 Beautiful Color Options','Extra Thick & Heavy','Perfect for Sofa or Bed','Great Family Gift','Hypoallergenic Material']
+  },
+  {
+    id: 'velvet', cat: 'bedding',
+    name: 'Soft Bubble Velvet Rabbit Fur Blanket',
+    short: 'Silky smooth bubble texture that feels like a warm hug — available in 8+ gorgeous colors!',
+    price: '$32.99', old: '$45.00', emoji: '🧸',
+    bg: '#EDE8F2',
+    badge: 'New',
+    stars: 5, reviews: 2388,
+    shipping: '🚚 Free Shipping · Multiple Colors',
+    mainImg: null,
+    thumbs: [],
+    colors: ['🩷 Pink','🩵 Mint Blue','🟣 Lavender','⬜ Cream','🟤 Camel','⚫ Charcoal','🟢 Sage','🔴 Rose Red'],
+    details: 'This incredibly soft bubble velvet blanket features a unique bubble texture on one side and silky smooth fabric on the other. Lightweight yet surprisingly warm — perfect for lounging on the sofa or adding a cozy layer to your bed. Available in over 8 stunning colors to match your home decor.',
+    features: ['Unique Bubble Velvet Texture','Double-Sided Design','8+ Color Options','Lightweight Yet Warm','Machine Washable','Perfect Sofa Throw','Beautiful Gift Idea','Hypoallergenic']
+  },
+  {
+    id: 'mug', cat: 'kitchen',
+    name: 'Ceramic Coffee Mug',
+    short: 'Handcrafted ceramic mug that makes every morning feel special — available in 4 beautiful glazes!',
+    price: '$19.99', old: '$28.00', emoji: '☕',
+    bg: '#EEE5D8',
+    badge: 'Popular',
+    stars: 5, reviews: 33,
+    shipping: '🚚 Free Shipping',
+    mainImg: 'mug_main.png',
+    thumbs: ['mug_colors.jpg'],
+    colors: ['🖤 Black Glaze','🔵 Sky Blue','🟤 Natural Earth','🩷 Blush Pink'],
+    details: 'Start every morning with something beautiful. This handcrafted ceramic mug sits on an elegant square stone base and features a unique cone shape that keeps your drink warm longer. Each mug has its own natural glaze variations — making every piece truly one of a kind. Perfect for coffee, tea, or matcha.',
+    features: ['Handcrafted Ceramic','Unique Cone Shape Design','Includes Stone Base Stand','4 Stunning Glaze Colors','Keeps Drinks Warm Longer','Microwave & Dishwasher Safe','Each Piece Uniquely Glazed','Perfect Morning Gift']
+  },
+  {
+    id: 'stoneware', cat: 'kitchen',
+    name: 'Stoneware Vintage Household Mug',
+    short: 'Rustic stoneware charm for your morning ritual — every sip feels like a warm hug!',
+    price: '$24.99', old: '$35.00', emoji: '🍵',
+    bg: '#F0E8DF',
+    badge: 'New',
+    stars: 5, reviews: 28,
+    shipping: '🚚 Free Shipping',
+    mainImg: 'stoneware_main.png',
+    thumbs: ['stoneware_detail.jpg'],
+    colors: ['🟤 Classic Brown','🟢 Sage Green','⬜ Cream White'],
+    details: 'This authentic stoneware mug brings warmth and rustic charm to your daily coffee or tea ritual. The natural earthy glaze and ridged texture make it a beautiful addition to any kitchen. Heavy and satisfying to hold, it keeps your beverages warm while looking gorgeous on your shelf.',
+    features: ['Authentic Stoneware Clay','Natural Earthy Glaze Finish','Ribbed Texture Design','Dishwasher Safe','Microwave Safe','Keeps Drinks Warm','Rustic Farmhouse Style','Makes a Wonderful Gift']
+  }
+];
+
+var collectionInfo = {
+  all:     { title: 'All Products', desc: 'Handpicked cozy essentials for every room', label: 'Our Collection', bg: 'linear-gradient(135deg,#8B3E1F,#C4673A)' },
+  decor:   { title: 'Home Décor', desc: 'Transform your space into a cozy sanctuary', label: 'Collection', bg: "url('Home_Decor.png')" },
+  kitchen: { title: 'Kitchen & Dining', desc: 'Beautiful pieces for your family table', label: 'Collection', bg: "url('Kitchen_and_dining.png')" },
+  bedding: { title: 'Bedding & Cozy', desc: 'Wrap yourself in warmth and comfort', label: 'Collection', bg: "url('Bedding_and_cozy.png')" },
+  family:  { title: 'Family Essentials', desc: 'Organize and inspire your family home', label: 'Collection', bg: "url('Family_Essentials.png')" }
+};
+
+function openCollection(cat) {
+  document.getElementById('collections-overlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  switchCollection(cat || 'all');
+  document.getElementById('collections-overlay').scrollTop = 0;
+}
+
+function closeCollection() {
+  document.getElementById('collections-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function switchCollection(cat) {
+  // Update tabs
+  ['all','decor','kitchen','bedding','family'].forEach(function(t) {
+    var tab = document.getElementById('tab-' + t);
+    if (tab) tab.className = 'col-tab' + (t === cat ? ' active-tab' : '');
+  });
+
+  // Update banner
+  var info = collectionInfo[cat];
+  document.getElementById('collection-title').textContent = info.title;
+  document.getElementById('collection-desc').textContent = info.desc;
+  document.getElementById('collection-label').textContent = info.label;
+  document.getElementById('collection-banner-bg').style.background = info.bg;
+  document.getElementById('collection-banner-bg').style.backgroundSize = 'cover';
+  document.getElementById('collection-banner-bg').style.backgroundPosition = 'center';
+
+  // Filter products
+  var filtered = cat === 'all' ? allProducts : allProducts.filter(function(p) { return p.cat === cat; });
+
+  // Render products
+  var grid = document.getElementById('collection-products');
+  grid.innerHTML = filtered.map(function(p) {
+    var stars = '★'.repeat(p.stars) + '☆'.repeat(5 - p.stars);
+    return '<div class="prod-card" onclick="openProductDetail(\'' + p.id + '\')" style="cursor:pointer;">' +
+      '<div class="prod-img" style="background:' + p.bg + ';position:relative;">' +
+        '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;">' + p.emoji + '</div>' +
+        '<span class="prod-badge">' + p.badge + '</span>' +
+      '</div>' +
+      '<div class="prod-body">' +
+        '<div class="prod-cat">' + collectionInfo[p.cat].title + '</div>' +
+        '<div class="prod-name">' + p.name + '</div>' +
+        '<div style="font-size:0.82rem;color:var(--text-mid);margin:0.3rem 0 0.5rem;line-height:1.5;">' + p.short + '</div>' +
+        '<div class="prod-stars" style="font-size:0.8rem;">' + stars + ' <span>(' + p.reviews.toLocaleString() + ')</span></div>' +
+        '<div style="font-size:0.75rem;color:var(--sage);margin:0.3rem 0 0.5rem;">' + p.shipping + '</div>' +
+        '<div class="prod-price-row">' +
+          '<div><span class="prod-price">' + p.price + '</span> <span class="prod-price-old">' + p.old + '</span></div>' +
+          '<button class="add-btn" onclick="event.stopPropagation();addToCart(\'' + p.name + '\',\'' + p.price + '\',\'' + p.emoji + '\')">+</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function openProductDetail(id) {
+  var p = allProducts.find(function(x) { return x.id === id; });
+  if (!p) return;
+
+  var starsHtml = '★★★★★'.slice(0, p.stars) + '☆☆☆☆☆'.slice(0, 5 - p.stars);
+  var savings = Math.round((parseFloat(p.old.replace('$','')) - parseFloat(p.price.replace('$',''))) / parseFloat(p.old.replace('$','')) * 100);
+  var catTitle = collectionInfo[p.cat] ? collectionInfo[p.cat].title : '';
+
+  // Main image
+  var mainImgHtml = p.mainImg
+    ? '<img id="prod-main-img" src="' + p.mainImg + '" alt="' + p.name + '" style="width:100%;border-radius:16px;aspect-ratio:1;object-fit:cover;margin-bottom:10px;"/>'
+    : '<div style="background:' + p.bg + ';border-radius:16px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:6rem;margin-bottom:10px;">' + p.emoji + '</div>';
+
+  // Thumbnails
+  var thumbsHtml = '';
+  if (p.thumbs) {
+    thumbsHtml = p.thumbs.map(function(thumb, i) {
+      return '<img src="' + thumb + '" style="width:100%;border-radius:8px;aspect-ratio:1;object-fit:cover;cursor:pointer;border:2px solid ' + (i===0 ? 'var(--terracotta)' : 'transparent') + ';opacity:' + (i===0 ? '1' : '0.7') + ';" onclick="var main=document.getElementById(\'prod-main-img\');if(main)main.src=this.src;this.parentElement.querySelectorAll(\'img\').forEach(function(x){x.style.border=\'2px solid transparent\';x.style.opacity=\'0.7\'});this.style.border=\'2px solid var(--terracotta)\';this.style.opacity=\'1\'"/>';
+    }).join('');
+  } else {
+    thumbsHtml = [0,1,2,3].map(function(i) {
+      return '<div style="background:' + p.bg + ';border-radius:8px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:1.2rem;opacity:' + (i===0?'1':'0.4') + ';border:2px solid ' + (i===0?'var(--terracotta)':'transparent') + ';">' + p.emoji + '</div>';
+    }).join('');
+  }
+
+  // Colors
+  var colorsHtml = '';
+  if (p.colors) {
+    colorsHtml = '<div style="margin-top:12px;"><div style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-mid);margin-bottom:6px;">Available Colors</div><div style="display:flex;flex-wrap:wrap;gap:6px;">' +
+      p.colors.map(function(c) {
+        return '<span style="background:#F5F0EA;border-radius:50px;padding:4px 12px;font-size:0.78rem;color:var(--text-mid);cursor:pointer;border:1px solid var(--border);">' + c + '</span>';
+      }).join('') + '</div></div>';
+  }
+
+  // Features
+  var featuresHtml = p.features.map(function(f) {
+    return '<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">' +
+      '<span style="width:22px;height:22px;min-width:22px;background:var(--terracotta);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;">✓</span>' +
+      '<span style="font-size:0.9rem;color:var(--text-mid);">' + f + '</span>' +
+    '</div>';
+  }).join('');
+
+  var html =
+    '<div style="font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--terracotta);margin-bottom:6px;">' + catTitle + '</div>' +
+    '<h2 style="font-family:Playfair Display,serif;color:var(--mahogany);font-size:1.4rem;margin-bottom:10px;line-height:1.3;">' + p.name + '</h2>' +
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">' +
+      '<span style="color:#D4873A;font-size:0.95rem;">' + starsHtml + '</span>' +
+      '<span style="color:var(--text-light);font-size:0.82rem;">' + p.reviews.toLocaleString() + ' happy customers</span>' +
+      '<span style="background:#E8F5E9;color:#2E7D32;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:50px;">✓ In Stock</span>' +
+    '</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;">' +
+      '<div>' +
+        mainImgHtml +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">' + thumbsHtml + '</div>' +
+        colorsHtml +
+      '</div>' +
+      '<div>' +
+        '<div style="background:#FFF8F5;border-radius:12px;padding:14px;margin-bottom:14px;">' +
+          '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">' +
+            '<span style="font-size:1.8rem;font-weight:700;color:var(--terracotta-dark);">' + p.price + '</span>' +
+            '<span style="color:var(--text-light);text-decoration:line-through;font-size:0.95rem;">' + p.old + '</span>' +
+            '<span style="background:var(--terracotta);color:white;font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:50px;">SAVE ' + savings + '%</span>' +
+          '</div>' +
+          '<div style="font-size:0.8rem;color:var(--sage);">' + p.shipping + '</div>' +
+        '</div>' +
+        '<p style="color:var(--text-mid);line-height:1.8;font-size:0.9rem;margin-bottom:14px;">' + p.short + '</p>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;">' +
+          '<div style="background:#F9F6F2;border-radius:8px;padding:8px;text-align:center;font-size:0.72rem;color:var(--text-mid);">🔒 Secure Checkout</div>' +
+          '<div style="background:#F9F6F2;border-radius:8px;padding:8px;text-align:center;font-size:0.72rem;color:var(--text-mid);">↩️ 30-Day Returns</div>' +
+          '<div style="background:#F9F6F2;border-radius:8px;padding:8px;text-align:center;font-size:0.72rem;color:var(--text-mid);">🚚 Free Shipping</div>' +
+          '<div style="background:#F9F6F2;border-radius:8px;padding:8px;text-align:center;font-size:0.72rem;color:var(--text-mid);">💬 24/7 Support</div>' +
+        '</div>' +
+        '<button class="btn-primary" style="width:100%;text-align:center;padding:14px;font-size:0.95rem;margin-bottom:8px;display:block;" onclick="addToCart(\'' + p.name.replace(/'/g,'') + '\',\'' + p.price + '\',\'' + p.emoji + '\');closePolicy();">🛒 Add to Cart</button>' +
+        '<button style="width:100%;text-align:center;padding:12px;font-size:0.85rem;border:2px solid var(--terracotta);border-radius:50px;background:transparent;color:var(--terracotta);font-weight:700;cursor:pointer;font-family:Lato,sans-serif;letter-spacing:0.06em;text-transform:uppercase;display:block;" onclick="addToCart(\'' + p.name.replace(/'/g,'') + '\',\'' + p.price + '\',\'' + p.emoji + '\');checkout();">⚡ Buy Now</button>' +
+      '</div>' +
+    '</div>' +
+    '<div style="border-top:1px solid var(--border);padding-top:1.5rem;margin-bottom:1.5rem;">' +
+      '<h4 style="font-family:Playfair Display,serif;color:var(--mahogany);font-size:1.1rem;margin-bottom:10px;">Why Families Love This</h4>' +
+      '<p style="color:var(--text-mid);line-height:1.9;font-size:0.92rem;">' + p.details + '</p>' +
+    '</div>' +
+    '<div style="border-top:1px solid var(--border);padding-top:1.5rem;">' +
+      '<h4 style="font-family:Playfair Display,serif;color:var(--mahogany);font-size:1.1rem;margin-bottom:10px;">Features & What\'s Included</h4>' +
+      featuresHtml +
+    '</div>';
+
+  document.getElementById('policy-content').innerHTML = html;
+  var modal = document.getElementById('policy-modal');
+  modal.querySelector('div').style.maxWidth = '860px';
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+
+</script>
+</body>
+</html>
